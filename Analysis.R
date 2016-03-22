@@ -39,4 +39,13 @@ Data_Singapore = extractData(Rawdata_Singapore)
 Data_Korea = extractData(Rawdata_Korea)
 
 #取出每個資料的人口, GDP(美元), 人均GDP, 年 - 台灣
+extractCol <- function(df){
+  A = subset(df,select=c("X.","期中人口.人.","X..1","X.國內生產毛額GDP.名目值.百萬美元.","X.平均每人GDP.名目值.美元.","X..4","X..7"));
+  names(A) = c("year","POP","POP_GROWTH","GDP","GDP_PER_CAP","GDP_GROWTH","GDP_PER_CAP_GROWTH");
+  return(A);
+}
+
+Data_Taiwan = extractCol(Rawdata_Taiwan);
+Data_Taiwan = mutate(Data_Taiwan,year= as.integer(year),POP = as.numeric(POP,),POP_GROWTH = as.numeric(POP_GROWTH),GDP=as.numeric(GDP));
+Data_Taiwan = mutate(Data_Taiwan,GDP_PER_CAP= as.numeric(GDP_PER_CAP),GDP_GROWTH = as.numeric(GDP_GROWTH),GDP_PER_CAP_GROWTH = as.numeric(GDP_PER_CAP_GROWTH));
 
